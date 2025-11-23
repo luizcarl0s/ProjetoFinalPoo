@@ -1,0 +1,128 @@
+SistemaBiblioteca //Classe do sistema
+aggregates Item
+aggregates Usuario
+aggregates Emprestimo
+aggregates ServicoComunitario
+---
+- itens: ArrayList<Item>
+- usuarios: ArrayList<Usuario>
+- emprestimos: ArrayList<Emprestimo>
+- servicos: ArrayList<ServicoComunitario>
+---
++ SistemaBiblioteca()
++ adicionarItem(): void
++ cadastrarUsuario(): void
++ cadastrarServico(): void
+---
+Item //Classe abstrata
+implements Emprestavel
+---
+- nome: String
+- codigo: int
+- disponivel: boolean
+---
++ Item()
++ getNome():String
++ getCodigo(): int
++ getDisponivel(): boolean
++ setDisponivel(disponivel: boolean): void
++ emprestar(): void
++ devolver(): void
++ exibirInformacoes(): String //método abstrato
+---
+Livro 
+extends Item
+---
+- autor: String
+- dataLancamento: String
+- isbn: String
+---
++ Livro()
++ exibirInformacoes(): String
+---
+Revista
+extends Item
+---
+- edicao: String
+- mes: String
+---
++ Revista()
++ exibirInformacoes(): String
+---
+Brinquedo
+extends Item
+---
+- material: String
+- faixaEtaria: int
+---
++ Brinquedo()
++ exibirInformacoes(): String 
+---
+Emprestavel //Interface
+---
+---
++ emprestar(): void
++ devolver(): void
+---
+Usuario //Classe mãe
+association Historico
+---
+- cpf: String
+- nome: String
+- contato: String
+- historico: Historico
+---
++ Usuario()
+---
+Voluntario
+extends Usuario
+---
+- perfil: String
+---
++ Voluntario()
+---
+Gerente
+extends Usuario
+---
+- setorResponsavel: String
+---
++ Gerente()
++ gerarRelatorio(): void
++ cadastrarVoluntario(): boolean
+---
+Historico
+---
+- emprestimos: ArrayList<Emprestimo>
+- servicosPartipados: ArrayList<ServicoComunitario>
+---
+---
+Emprestimo
+association Item
+association Usuario
+---
+- item: Item
+- usuario: Usuario
+- dataSaida: String
+- dataDevolucao: String
+- valorMultaPorDia: double
+---
++ Emprestimo()
++ registrar(): void
++ estaPendente(): boolean
++ calcularMulta(): int
+---
+ServicoComunitario
+---
+- id: int
+- nome: String
+- descricao: String
+- responsavel: Usuario
+- participantes: ArrayList<Usuario>
+- vagas: int
+- horario: String
+---
++ ServicoComunitario()
++ adicionarParticipante(): boolean
++ removerParticipante(): boolean
++ listarParticipantes(): String
+---
