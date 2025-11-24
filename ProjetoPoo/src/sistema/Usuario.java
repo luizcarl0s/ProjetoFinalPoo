@@ -21,32 +21,16 @@ public class Usuario {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getNome() {
 		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getContato() {
 		return contato;
 	}
 
-	public void setContato(String contato) {
-		this.contato = contato;
-	}
-
 	public Historico getHistorico() {
 		return historico;
-	}
-
-	public void setHistorico(Historico historico) {
-		this.historico = historico;
 	}
 	
 	public boolean estaSuspenso() {
@@ -55,5 +39,9 @@ public class Usuario {
 	
 	public boolean temMultaPendente() {
 		return false;
+	}
+
+	public List<Penalidade> getPenalidades() {
+		return penalidades;
 	}
 }
