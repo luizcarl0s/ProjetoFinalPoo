@@ -1,10 +1,13 @@
 package sistema;
 
+import java.util.List;
+
 public class Usuario {
 	private String cpf;
 	private String nome;
 	private String contato;
 	private Historico historico;
+	private List<Penalidade> penalidades;
 	
 	public Usuario(String cpf, String nome, String contato, Historico historico) {
 		super();
@@ -44,5 +47,13 @@ public class Usuario {
 
 	public void setHistorico(Historico historico) {
 		this.historico = historico;
+	}
+	
+	public boolean estaSuspenso() {
+		return false;
+	}
+	
+	public boolean temMultaPendente() {
+		return false;
 	}
 }

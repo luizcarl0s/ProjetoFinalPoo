@@ -17,11 +17,11 @@ public class SistemaBiblioteca {
 	}
 	
 	public void adicionarItem(Item item) {
-		
+		this.itens.add(item);
 	}
 	
 	public void cadastrarUsuario(Usuario usuario) {
-		
+		this.usuarios.add(usuario);
 	}
 	
 	public boolean registrarEmprestimo(int itemCodigo, String cpfUsuario) {
@@ -45,7 +45,7 @@ public class SistemaBiblioteca {
 	}
 	
 	public void cadastrarServico(ServicoComunitario servico) {
-		
+		this.servicos.add(servico);
 	}
 	
 	public String listarServicos() {
@@ -62,5 +62,13 @@ public class SistemaBiblioteca {
 	
 	public boolean registrarParticipacaoServico(int idServico, String cpfUsuario) {
 		return false;
+	}
+	
+	public Historico consultarHistorico(Usuario usuario) {
+		return null;
+	}
+	
+	public void aplicarPenalidade(Penalidade penalidade) {
+		
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 public class Historico {
 	private List<Emprestimo> emprestimos;
 	private List<ServicoComunitario> servicos;
+	private List<Penalidade> penalidades;
 	
 	public List<Emprestimo> getEmprestimos() {
 		return emprestimos;
@@ -17,5 +18,27 @@ public class Historico {
 	}
 	public void setServicos(List<ServicoComunitario> servicos) {
 		this.servicos = servicos;
+	}
+	public List<Penalidade> getPenalidades() {
+		return penalidades;
+	}
+	public void setPenalidades(List<Penalidade> penalidades) {
+		this.penalidades = penalidades;
+	}
+	
+	public void adicionarEmprestimo(Emprestimo e) {
+		
+	}
+	
+	public void adicionarServico(ServicoComunitario sc) {
+		
+	}
+	
+	public void adicionarPenalidade(Penalidade p) {
+		
+	}
+	
+	public String exibirHistorico() {
+		return "";
 	}
 }
