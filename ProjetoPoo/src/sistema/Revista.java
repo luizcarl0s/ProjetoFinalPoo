@@ -5,7 +5,7 @@ public class Revista extends Item{
 	private String mes;
 	
 	public Revista(String nome, int codigo, boolean disponivel, String edicao, String mes) {
-		super(nome, codigo, disponivel);
+		super(nome, codigo);
 		this.edicao = edicao;
 		this.mes = mes;
 	}
@@ -27,20 +27,10 @@ public class Revista extends Item{
 	}
 
 	@Override
-	public void emprestar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void devolver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String exibirInformacoes() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Revista: " + nome +
+		"\nEdicao: " + edicao +
+		"\nMês: " + mes + 
+		"\nDisponível:  " + (disponivel ? "Sim" : "Não");
 	}
 }

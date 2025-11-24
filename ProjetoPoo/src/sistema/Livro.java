@@ -6,7 +6,7 @@ public class Livro extends Item{
 	private String isbn;
 
 	public Livro(String nome, int codigo, boolean disponivel, String autor, String dataLancamento, String isbn) {
-		super(nome, codigo, disponivel);
+		super(nome, codigo);
 		this.autor = autor;
 		this.dataLancamento = dataLancamento;
 		this.isbn = isbn;
@@ -37,21 +37,11 @@ public class Livro extends Item{
 	}
 
 	@Override
-	public void emprestar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void devolver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String exibirInformacoes() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Livro: " + nome +
+				"\nAutor: " + autor +
+				"\nisbn: " + isbn + 
+				"\nDisponível:  " + (disponivel ? "Sim" : "Não");
 	}
 	
 }

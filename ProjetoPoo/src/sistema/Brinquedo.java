@@ -5,7 +5,7 @@ public class Brinquedo extends Item{
 	private int faixaEtaria;
 	
 	public Brinquedo(String nome, int codigo, boolean disponivel, String material, int faixaEtaria) {
-		super(nome, codigo, disponivel);
+		super(nome, codigo);
 		this.material = material;
 		this.faixaEtaria = faixaEtaria;
 	}
@@ -27,20 +27,10 @@ public class Brinquedo extends Item{
 	}
 
 	@Override
-	public void emprestar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void devolver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String exibirInformacoes() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Brinquedo: " + nome +
+		"\nMaterial: " + material +
+		"\nFaixa Etária: " + faixaEtaria + 
+		"\nDisponível:  " + (disponivel ? "Sim" : "Não");
 	}
 }
