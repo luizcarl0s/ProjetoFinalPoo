@@ -19,4 +19,8 @@ public class Gerente extends Usuario{
 	public boolean cadastrarVoluntario() {
 		return false;
 	}
+	
+	public void gerarRelatorio(SistemaBiblioteca sistema) {
+		
+	}
 }
