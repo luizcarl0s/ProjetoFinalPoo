@@ -49,8 +49,11 @@ public class SistemaBiblioteca {
 		}
 	}
 	
-	public void cadastrarUsuario(Usuario usuario) {
-		this.usuarios.add(usuario);
+	//Métodos do Usuário:
+	
+	public void cadastrarGerente(String cpf, String nome, String contato, Historico historico, String setorResponsavel) {
+		Usuario novoGerente = new Gerente(cpf, nome, contato, historico, setorResponsavel);
+		this.usuarios.add(novoGerente);
 	}
 	
 	public boolean registrarEmprestimo(int itemCodigo, String cpfUsuario) {
