@@ -16,20 +16,25 @@ public class SistemaBiblioteca {
 		this.servicos = new ArrayList<>();
 	}
 	
-	public void adicionarItem(Item item) {
-		this.itens.add(item);
+	//Métodos de itens;
+	
+	public boolean adicionarBrinquedo(String nome, int codigo, boolean disponivel, String material, int faixaEtaria) {
+		Item novoBriquendo = new Brinquedo(nome, codigo, disponivel, material, faixaEtaria);
+		return this.itens.add(novoBriquendo);
+	}
+	
+	public boolean adicionarLivro(String nome, int codigo, boolean disponivel, String autor, String dataLancamento, String isbn) {
+		Item novoLivro = new Livro(nome, codigo, disponivel, autor, dataLancamento, isbn);
+		return this.itens.add(novoLivro);
+	}
+	
+	public boolean adicionarRevista(String nome, int codigo, boolean disponivel, String edicao, String mes) {
+		Item novaRevista = new Revista(nome, codigo, disponivel, edicao, mes);
+		return this.itens.add(novaRevista);
 	}
 	
 	public void cadastrarUsuario(Usuario usuario) {
 		this.usuarios.add(usuario);
-	}
-	
-	public boolean registrarEmprestimo(int itemCodigo, String cpfUsuario) {
-		return false;
-	}
-	
-	public boolean registrarDevolucao(int itemCodigo, String cpfUsuario) {
-		return false;
 	}
 	
 	public String listarItens() {
@@ -38,6 +43,14 @@ public class SistemaBiblioteca {
 	
 	public String listarItensDisponiveis() {
 		return "";
+	}
+	
+	public boolean registrarEmprestimo(int itemCodigo, String cpfUsuario) {
+		return false;
+	}
+	
+	public boolean registrarDevolucao(int itemCodigo, String cpfUsuario) {
+		return false;
 	}
 	
 	public String listarEmprestimos() {
