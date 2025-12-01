@@ -5,10 +5,10 @@ public abstract class Item implements Emprestavel{
 	protected int codigo;
 	protected boolean disponivel;
 	
-	public Item(String nome, int codigo) {
+	public Item(String nome, int codigo, boolean disponivel) {
 		this.nome = nome;
 		this.codigo = codigo;
-		this.disponivel = true;
+		this.disponivel = disponivel;
 	}
 
 	public String getNome() {

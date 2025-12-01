@@ -16,7 +16,7 @@ public class SistemaBiblioteca {
 		this.servicos = new ArrayList<>();
 	}
 	
-	//Métodos de itens;
+	//Métodos de itens:
 	
 	public boolean adicionarBrinquedo(String nome, int codigo, boolean disponivel, String material, int faixaEtaria) {
 		Item novoBriquendo = new Brinquedo(nome, codigo, disponivel, material, faixaEtaria);
@@ -33,16 +33,24 @@ public class SistemaBiblioteca {
 		return this.itens.add(novaRevista);
 	}
 	
+	public void listarItens() {
+		for(Item i : this.itens) {
+			 System.out.println(i.exibirInformacoes());
+			 System.out.println("---------------------");
+		}
+	}
+	
+	public void listarItensDisponiveis() {
+		for(Item i : this.itens) {
+			if (i.isDisponivel()) {
+				System.out.println(i.exibirInformacoes());
+				System.out.println("---------------------");
+			}
+		}
+	}
+	
 	public void cadastrarUsuario(Usuario usuario) {
 		this.usuarios.add(usuario);
-	}
-	
-	public String listarItens() {
-		return "";
-	}
-	
-	public String listarItensDisponiveis() {
-		return "";
 	}
 	
 	public boolean registrarEmprestimo(int itemCodigo, String cpfUsuario) {

@@ -5,7 +5,7 @@ public class Revista extends Item{
 	private String mes;
 	
 	public Revista(String nome, int codigo, boolean disponivel, String edicao, String mes) {
-		super(nome, codigo);
+		super(nome, codigo, disponivel);
 		this.edicao = edicao;
 		this.mes = mes;
 	}

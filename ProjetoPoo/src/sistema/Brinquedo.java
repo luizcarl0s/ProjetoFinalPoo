@@ -5,7 +5,7 @@ public class Brinquedo extends Item{
 	private int faixaEtaria;
 	
 	public Brinquedo(String nome, int codigo, boolean disponivel, String material, int faixaEtaria) {
-		super(nome, codigo);
+		super(nome, codigo, disponivel);
 		this.material = material;
 		this.faixaEtaria = faixaEtaria;
 	}
