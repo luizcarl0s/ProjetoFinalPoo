@@ -3,7 +3,6 @@ package sistema;
 import java.util.ArrayList;
 
 public class Historico {
-
     private ArrayList<Emprestimo> emprestimos;
     private ArrayList<ServicoComunitario> servicos;
     private ArrayList<Penalidade> penalidades;
@@ -33,9 +32,7 @@ public class Historico {
         }
 
         for (Emprestimo e : emprestimos) {
-            System.out.println("- " +
-                e.getItem().getNome() +
-                " | Status: " + e.getStatus());
+            System.out.println("- " + e.getItem().getNome() + " | Status: " + e.getStatus());
         }
     }
 
@@ -57,9 +54,7 @@ public class Historico {
         }
 
         for (Penalidade p : penalidades) {
-            System.out.println("- " +
-                p.getMotivo() +
-                " | Ativa: " + p.estaAtiva());
+            System.out.println("- " + p.getMotivo() + " | Ativa: " + p.estaAtiva());
         }
     }
 }

@@ -22,7 +22,6 @@ public class Brinquedo extends Item{
 
     @Override
     public String exibirInformacoes() {
-        return "Brinquedo: " + nome + " | Material: " + material +
-               " | Faixa etária: " + faixaEtaria;
+        return "Brinquedo: " + nome + " | Material: " + material + " | Faixa etária: " + faixaEtaria;
     }
 }

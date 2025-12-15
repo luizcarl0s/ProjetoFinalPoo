@@ -1,7 +1,6 @@
 package sistema;
 
 public class Usuario {
-
     protected String cpf;
     protected String nome;
     protected String contato;
@@ -9,9 +8,7 @@ public class Usuario {
     protected Historico historico;
     private Credencial credencial;
 
-    public Usuario(String cpf, String nome, String contato, TipoUsuario tipo,
-                   String usuarioLogin, String senha) {
-
+    public Usuario(String cpf, String nome, String contato, TipoUsuario tipo, String usuarioLogin, String senha) {
         this.cpf = cpf;
         this.nome = nome;
         this.contato = contato;

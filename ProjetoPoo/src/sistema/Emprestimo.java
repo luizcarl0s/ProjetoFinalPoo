@@ -3,7 +3,6 @@ package sistema;
 import java.time.LocalDate;
 
 public class Emprestimo {
-
     private Item item;
     private Usuario usuario;
     private LocalDate dataSaida;
@@ -11,9 +10,7 @@ public class Emprestimo {
     private LocalDate dataDevolucaoReal;
     private StatusEmprestimo status;
 
-    public Emprestimo(Item item, Usuario usuario,
-                      LocalDate dataSaida,
-                      LocalDate dataDevolucaoPrevista) {
+    public Emprestimo(Item item, Usuario usuario, LocalDate dataSaida, LocalDate dataDevolucaoPrevista) {
         this.item = item;
         this.usuario = usuario;
         this.dataSaida = dataSaida;

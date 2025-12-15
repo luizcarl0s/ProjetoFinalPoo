@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SistemaBiblioteca {
-
     private ArrayList<Usuario> usuarios;
     private ArrayList<Item> itens;
     private ArrayList<Emprestimo> emprestimos;
@@ -47,7 +46,9 @@ public class SistemaBiblioteca {
 
     public Item buscarItemPorCodigo(int codigo) {
         for (Item i : itens) {
-            if (i.getCodigo() == codigo) return i;
+            if (i.getCodigo() == codigo) {
+            	return i;
+            }
         }
         return null;
     }

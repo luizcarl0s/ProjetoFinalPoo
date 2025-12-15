@@ -3,7 +3,6 @@ package sistema;
 import java.time.LocalDate;
 
 public class Penalidade {
-
     private Usuario usuario;
     private String motivo;
     private LocalDate inicio;
@@ -29,8 +28,6 @@ public class Penalidade {
     }
 
     public String exibir() {
-        return "Motivo: " + motivo +
-               " | Até: " + fim +
-               " | Ativa: " + (estaAtiva() ? "Sim" : "Não");
+        return "Motivo: " + motivo + " | Até: " + fim + " | Ativa: " + (estaAtiva() ? "Sim" : "Não");
     }
 }
