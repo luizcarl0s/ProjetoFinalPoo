@@ -1,18 +1,17 @@
 package sistema;
 
-public class Voluntario extends Usuario{
-	private String perfil;
+public class Voluntario extends Usuario {
 
-	public Voluntario(String cpf, String nome, String contato, Historico historico, String perfil) {
-		super(cpf, nome, contato, historico);
-		this.perfil = perfil;
-	}
+    private String perfil;
 
-	public String getPerfil() {
-		return perfil;
-	}
+    public Voluntario(String cpf, String nome, String contato,
+                      String user, String senha, String perfil) {
 
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
-	}
+        super(cpf, nome, contato, TipoUsuario.VOLUNTARIO, user, senha);
+        this.perfil = perfil;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
 }

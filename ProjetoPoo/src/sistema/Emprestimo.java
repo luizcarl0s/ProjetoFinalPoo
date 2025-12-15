@@ -1,69 +1,63 @@
 package sistema;
 
+import java.time.LocalDate;
+
 public class Emprestimo {
-	private Item item;
-	private Usuario usuario;
-	private String dataSaida;
-	private String ataDevolucao;
-	private double valorMultaPorDia;
-	
-	public Emprestimo(Item item, Usuario usuario, String dataSaida, String ataDevolucao, double valorMultaPorDia) {
-		this.item = item;
-		this.usuario = usuario;
-		this.dataSaida = dataSaida;
-		this.ataDevolucao = ataDevolucao;
-		this.valorMultaPorDia = valorMultaPorDia;
-	}
 
-	public Item getItem() {
-		return item;
-	}
+    private Item item;
+    private Usuario usuario;
+    private LocalDate dataSaida;
+    private LocalDate dataDevolucaoPrevista;
+    private LocalDate dataDevolucaoReal;
+    private StatusEmprestimo status;
 
-	public void setItem(Item item) {
-		this.item = item;
-	}
+    public Emprestimo(Item item, Usuario usuario,
+                      LocalDate dataSaida,
+                      LocalDate dataDevolucaoPrevista) {
+        this.item = item;
+        this.usuario = usuario;
+        this.dataSaida = dataSaida;
+        this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+        this.status = StatusEmprestimo.PENDENTE;
+    }
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    public Item getItem() {
+        return item;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	public String getDataSaida() {
+    public StatusEmprestimo getStatus() {
+        return status;
+    }
+
+    public boolean estaPendente() {
+        return status == StatusEmprestimo.PENDENTE;
+    }
+
+    public void registrar() {
+        item.emprestar();
+    }
+
+    public void devolver(LocalDate dataDevolucaoReal) {
+        this.dataDevolucaoReal = dataDevolucaoReal;
+
+        if (dataDevolucaoReal.isAfter(dataDevolucaoPrevista)) {
+            status = StatusEmprestimo.ATRASADO;
+        } else {
+            status = StatusEmprestimo.DEVOLVIDO;
+        }
+
+        item.devolver();
+    }
+
+	public LocalDate getDataSaida() {
 		return dataSaida;
 	}
 
-	public void setDataSaida(String dataSaida) {
-		this.dataSaida = dataSaida;
-	}
-
-	public String getAtaDevolucao() {
-		return ataDevolucao;
-	}
-
-	public void setAtaDevolucao(String ataDevolucao) {
-		this.ataDevolucao = ataDevolucao;
-	}
-
-	public double getValorMultaPorDia() {
-		return valorMultaPorDia;
-	}
-
-	public void setValorMultaPorDia(double valorMultaPorDia) {
-		this.valorMultaPorDia = valorMultaPorDia;
-	}
-	
-	public void registrar() {
-		
-	}
-	
-	public boolean estaPendente() {
-		return false;
-	}
-	
-	public int calcularMulta() {
-		return 0;
+	public LocalDate getDataDevolucaoReal() {
+		return dataDevolucaoReal;
 	}
 }

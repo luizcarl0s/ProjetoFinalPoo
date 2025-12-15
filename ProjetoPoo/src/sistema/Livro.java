@@ -5,43 +5,28 @@ public class Livro extends Item{
 	private String dataLancamento;
 	private String isbn;
 
-	public Livro(String nome, int codigo, boolean disponivel, String autor, String dataLancamento, String isbn) {
-		super(nome, codigo, disponivel);
+	public Livro(String nome, int codigo, String autor, String isbn) {
+		super(nome, codigo);
 		this.autor = autor;
-		this.dataLancamento = dataLancamento;
-		this.isbn = isbn;
-	}
-
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
-	public String getDataLancamento() {
-		return dataLancamento;
-	}
-
-	public void setDataLancamento(String dataLancamento) {
-		this.dataLancamento = dataLancamento;
-	}
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
 	@Override
-	public String exibirInformacoes() {
-		return "Livro: " + nome +
-				"\nAutor: " + autor +
-				"\nisbn: " + isbn + 
-				"\nDisponível:  " + (disponivel ? "Sim" : "Não");
+    public void emprestar() {
+        this.disponivel = false;
+    }
+
+    @Override
+    public void devolver() {
+        this.disponivel = true;
+    }
+
+    @Override
+    public String exibirInformacoes() {
+        return "Livro: " + nome + " | Autor: " + autor + " | ISBN: " + isbn;
+    }
+
+	public String getDataLancamento() {
+		return dataLancamento;
 	}
-	
 }

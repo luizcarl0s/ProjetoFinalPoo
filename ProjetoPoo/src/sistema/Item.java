@@ -5,10 +5,10 @@ public abstract class Item implements Emprestavel{
 	protected int codigo;
 	protected boolean disponivel;
 	
-	public Item(String nome, int codigo, boolean disponivel) {
+	public Item(String nome, int codigo) {
 		this.nome = nome;
 		this.codigo = codigo;
-		this.disponivel = disponivel;
+		this.disponivel = true;
 	}
 
 	public String getNome() {
@@ -28,18 +28,14 @@ public abstract class Item implements Emprestavel{
 	}
 	
 	public abstract String exibirInformacoes();
-
+	
 	@Override
 	public void emprestar() {
-		if (!disponivel) {
-			System.out.println("O item já está emprestado!");
-			return;
-		}
-		disponivel = false;
+	    this.disponivel = false;
 	}
 
 	@Override
 	public void devolver() {
-		disponivel = true;
+	    this.disponivel = true;
 	}
 }

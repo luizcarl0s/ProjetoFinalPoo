@@ -1,47 +1,42 @@
 package sistema;
 
-import java.util.List;
-
 public class Usuario {
-	private String cpf;
-	private String nome;
-	private String contato;
-	private Historico historico;
-	private List<Penalidade> penalidades;
-	
-	public Usuario(String cpf, String nome, String contato, Historico historico) {
-		super();
-		this.cpf = cpf;
-		this.nome = nome;
-		this.contato = contato;
-		this.historico = historico;
-	}
 
-	public String getCpf() {
-		return cpf;
-	}
+    protected String cpf;
+    protected String nome;
+    protected String contato;
+    protected TipoUsuario tipo;
+    protected Historico historico;
+    private Credencial credencial;
 
-	public String getNome() {
-		return nome;
-	}
+    public Usuario(String cpf, String nome, String contato, TipoUsuario tipo,
+                   String usuarioLogin, String senha) {
 
-	public String getContato() {
-		return contato;
-	}
+        this.cpf = cpf;
+        this.nome = nome;
+        this.contato = contato;
+        this.tipo = tipo;
+        this.historico = new Historico();
+        this.credencial = new Credencial(usuarioLogin, senha);
+    }
 
-	public Historico getHistorico() {
-		return historico;
-	}
-	
-	public boolean estaSuspenso() {
-		return false;
-	}
-	
-	public boolean temMultaPendente() {
-		return false;
-	}
+    public Credencial getCredencial() {
+        return credencial;
+    }
 
-	public List<Penalidade> getPenalidades() {
-		return penalidades;
-	}
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public Historico getHistorico() {
+        return historico;
+    }
 }

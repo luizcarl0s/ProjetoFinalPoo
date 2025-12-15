@@ -1,26 +1,21 @@
 package sistema;
 
-public class Gerente extends Usuario{
-	private String setorResponsavel;
+public class Gerente extends Usuario {
 
-	public Gerente(String cpf, String nome, String contato, Historico historico, String setorResponsavel) {
-		super(cpf, nome, contato, historico);
-		this.setorResponsavel = setorResponsavel;
-	}
+    private String setorResponsavel;
 
-	public String getSetorResponsavel() {
-		return setorResponsavel;
-	}
+    public Gerente(String cpf, String nome, String contato,
+                   String user, String senha, String setorResponsavel) {
 
-	public void setSetorResponsavel(String setorResponsavel) {
-		this.setorResponsavel = setorResponsavel;
-	}
-	
-	public boolean cadastrarVoluntario() {
-		return false;
-	}
-	
-	public void gerarRelatorio(SistemaBiblioteca sistema) {
-		
-	}
+        super(cpf, nome, contato, TipoUsuario.GERENTE, user, senha);
+        this.setorResponsavel = setorResponsavel;
+    }
+
+    public String getSetorResponsavel() {
+        return setorResponsavel;
+    }
+
+    public void gerarRelatorio() {
+        System.out.println("Relatório gerado pelo gerente: " + nome);
+    }
 }

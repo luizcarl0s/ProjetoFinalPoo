@@ -1,98 +1,285 @@
 package sistema;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SistemaBiblioteca {
-	private List<Item> itens;
-	private List<Usuario> usuarios;
-	private List<Emprestimo> emprestimos;
-	private List<ServicoComunitario> servicos;
-	
-	public SistemaBiblioteca() {
-		this.itens = new ArrayList<>();
-		this.usuarios = new ArrayList<>();
-		this.emprestimos = new ArrayList<>();
-		this.servicos = new ArrayList<>();
-	}
-	
-	//Métodos de itens:
-	
-	public boolean adicionarBrinquedo(String nome, int codigo, boolean disponivel, String material, int faixaEtaria) {
-		Item novoBriquendo = new Brinquedo(nome, codigo, disponivel, material, faixaEtaria);
-		return this.itens.add(novoBriquendo);
-	}
-	
-	public boolean adicionarLivro(String nome, int codigo, boolean disponivel, String autor, String dataLancamento, String isbn) {
-		Item novoLivro = new Livro(nome, codigo, disponivel, autor, dataLancamento, isbn);
-		return this.itens.add(novoLivro);
-	}
-	
-	public boolean adicionarRevista(String nome, int codigo, boolean disponivel, String edicao, String mes) {
-		Item novaRevista = new Revista(nome, codigo, disponivel, edicao, mes);
-		return this.itens.add(novaRevista);
-	}
-	
-	public void listarItens() {
-		for(Item i : this.itens) {
-			 System.out.println(i.exibirInformacoes());
-			 System.out.println("---------------------");
-		}
-	}
-	
-	public void listarItensDisponiveis() {
-		for(Item i : this.itens) {
-			if (i.isDisponivel()) {
-				System.out.println(i.exibirInformacoes());
-				System.out.println("---------------------");
-			}
-		}
-	}
-	
-	//Métodos do Usuário:
-	
-	public void cadastrarGerente(String cpf, String nome, String contato, Historico historico, String setorResponsavel) {
-		Usuario novoGerente = new Gerente(cpf, nome, contato, historico, setorResponsavel);
-		this.usuarios.add(novoGerente);
-	}
-	
-	public boolean registrarEmprestimo(int itemCodigo, String cpfUsuario) {
-		return false;
-	}
-	
-	public boolean registrarDevolucao(int itemCodigo, String cpfUsuario) {
-		return false;
-	}
-	
-	public String listarEmprestimos() {
-		return "";
-	}
-	
-	public void cadastrarServico(ServicoComunitario servico) {
-		this.servicos.add(servico);
-	}
-	
-	public String listarServicos() {
-		return "";
-	}
-	
-	public Usuario buscarUsuarioPorCpf(String cpf) {
-		return null;
-	}
-	
-	public Item buscarItemPorCodigo(int codigo) {
-		return null;
-	}
-	
-	public boolean registrarParticipacaoServico(int idServico, String cpfUsuario) {
-		return false;
-	}
-	
-	public Historico consultarHistorico(Usuario usuario) {
-		return null;
-	}
-	
-	public void aplicarPenalidade(Penalidade penalidade) {
-		
-	}
+
+    private ArrayList<Usuario> usuarios;
+    private ArrayList<Item> itens;
+    private ArrayList<Emprestimo> emprestimos;
+    private ArrayList<ServicoComunitario> servicos;
+    private ArrayList<Penalidade> penalidades;
+    private Login login;
+    private Usuario usuarioLogado;
+
+    public SistemaBiblioteca() {
+        usuarios = new ArrayList<>();
+        itens = new ArrayList<>();
+        emprestimos = new ArrayList<>();
+        servicos = new ArrayList<>();
+        penalidades = new ArrayList<>();
+        login = new Login(usuarios);
+    }
+
+    // ================= CADASTROS =================
+
+    public void cadastrarUsuario(Usuario u) {
+        usuarios.add(u);
+    }
+
+    public void adicionarItem(Item item) {
+        itens.add(item);
+    }
+
+    public void adicionarServico(ServicoComunitario servico) {
+        servicos.add(servico);
+    }
+
+    // ================= BUSCAS =================
+
+    public Usuario buscarUsuarioPorCpf(String cpf) {
+        for (Usuario u : usuarios) {
+            if (u.getCpf().equals(cpf)) return u;
+        }
+        return null;
+    }
+
+    public Item buscarItemPorCodigo(int codigo) {
+        for (Item i : itens) {
+            if (i.getCodigo() == codigo) return i;
+        }
+        return null;
+    }
+
+    // ================= LOGIN =================
+    
+    
+    public boolean isAutenticado() {
+        return usuarioLogado != null;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public boolean login(String user, String senha) {
+        Usuario u = login.autenticar(user, senha); // chama a classe Login
+        if (u != null) {
+            usuarioLogado = u;
+            return true;
+        }
+        return false;
+    }
+
+    public void logout() {
+        usuarioLogado = null;
+    }
+    
+    // ================= USER =================
+    
+    public boolean isGerente() {
+        return usuarioLogado != null &&
+               usuarioLogado.getTipo() == TipoUsuario.GERENTE;
+    }
+
+    public boolean isVoluntario() {
+        return usuarioLogado != null &&
+               usuarioLogado.getTipo() == TipoUsuario.VOLUNTARIO;
+    }
+
+
+    // ================= PENALIDADE =================
+
+    private boolean usuarioPenalizado(Usuario u) {
+        for (Penalidade p : penalidades) {
+            if (p.getUsuario().equals(u) && p.estaAtiva()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void aplicarPenalidade(Usuario usuario, String motivo, int dias) {
+        Penalidade p = new Penalidade(usuario, motivo, dias);
+        penalidades.add(p);
+    }
+    
+    public void listarPenalidadesDoUsuario(Usuario u) {
+        boolean encontrou = false;
+
+        for (Penalidade p : penalidades) {
+            if (p.getUsuario().equals(u)) {
+                System.out.println(p.exibir());
+                encontrou = true;
+            }
+        }
+
+        if (!encontrou) {
+            System.out.println("Nenhuma penalidade encontrada.");
+        }
+    }
+
+
+    // ================= EMPRÉSTIMO =================
+
+
+public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate dataDevolucaoPrevista) {
+        try {
+            Item item = buscarItemPorCodigo(codigo);
+            Usuario usuario = buscarUsuarioPorCpf(cpf);
+
+            if (item == null || usuario == null)
+                throw new Exception("Item ou usuário inexistente");
+
+            if (!item.isDisponivel())
+                throw new Exception("Item indisponível");
+
+            if (usuarioPenalizado(usuario))
+                throw new Exception("Usuário penalizado");
+
+            Emprestimo e = new Emprestimo(item, usuario, dataSaida, dataDevolucaoPrevista);
+            e.registrar();
+
+            emprestimos.add(e);
+            usuario.getHistorico().adicionarEmprestimo(e);
+
+        } catch (Exception e) {
+            System.out.println("Erro no empréstimo: " + e.getMessage());
+        }
+    }
+
+
+    // ================= DEVOLUÇÃO =================
+
+    public void devolverItem(int codigo) {
+        for (Emprestimo e : emprestimos) {
+
+            if (e.getItem().getCodigo() == codigo && e.estaPendente()) {
+
+                e.devolver(LocalDate.now());
+
+                if (e.getStatus() == StatusEmprestimo.ATRASADO) {
+                    aplicarPenalidade(
+                        e.getUsuario(),
+                        "Devolução em atraso",
+                        7
+                    );
+                }
+
+                return;
+            }
+        }
+
+        System.out.println("Empréstimo não encontrado ou já devolvido.");
+    }
+
+ // ===== RELATÓRIO =====
+
+    public int getTotalUsuarios() {
+        return usuarios.size();
+    }
+
+    public int getTotalItens() {
+        return itens.size();
+    }
+
+    public int getItensDisponiveis() {
+        int count = 0;
+        for (Item i : itens) {
+            if (i.isDisponivel()) count++;
+        }
+        return count;
+    }
+
+    public int getItensEmprestados() {
+        return getTotalItens() - getItensDisponiveis();
+    }
+
+    public int getEmprestimosAtivos() {
+        int count = 0;
+        for (Emprestimo e : emprestimos) {
+            if (e.estaPendente()) count++;
+        }
+        return count;
+    }
+
+    public int getTotalServicos() {
+        return servicos.size();
+    }
+
+    public int getPenalidadesAtivas() {
+        int count = 0;
+        for (Penalidade p : penalidades) {
+            if (p.estaAtiva()) count++;
+        }
+        return count;
+    }
+    
+    // Serviços
+    
+    public void listarServicos() {
+        if (servicos.isEmpty()) {
+            System.out.println("Nenhum serviço cadastrado.");
+            return;
+        }
+
+        for (ServicoComunitario s : servicos) {
+            System.out.println(s.resumo());
+        }
+    }
+    
+    public void inscreverEmServico(int id) {
+
+        if (!isAutenticado()) {
+            System.out.println("Você precisa estar logado.");
+            return;
+        }
+
+        Usuario usuario = getUsuarioLogado();
+
+        ServicoComunitario servico = null;
+
+        for (ServicoComunitario s : servicos) {
+            if (s.getId() == id) {
+                servico = s;
+                break;
+            }
+        }
+
+        if (servico == null) {
+            System.out.println("Serviço comunitário não encontrado.");
+            return;
+        }
+
+        if (!servico.temVaga()) {
+            System.out.println("Não há vagas disponíveis neste serviço.");
+            return;
+        }
+
+        if (servico.estaInscrito(usuario)) {
+            System.out.println("Você já está inscrito neste serviço.");
+            return;
+        }
+
+        servico.inscrever(usuario);
+        usuario.getHistorico().adicionarServico(servico);
+
+        System.out.println("Inscrição realizada com sucesso!");
+    }
+
+
+
+    
+ // ===== PERMISSÃO =====
+
+    public boolean temPermissao(TipoUsuario... tipos) {
+        if (!isAutenticado()) return false;
+
+        TipoUsuario tipoLogado = usuarioLogado.getTipo();
+        for (TipoUsuario t : tipos) {
+            if (t == tipoLogado) return true;
+        }
+        return false;
+    }
 }
