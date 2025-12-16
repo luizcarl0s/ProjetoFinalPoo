@@ -21,7 +21,7 @@ public class SistemaBiblioteca {
         login = new Login(usuarios);
     }
 
-    // ================= CADASTROS =================
+//Métodos de cadastro
 
     public void cadastrarUsuario(Usuario u) {
         usuarios.add(u);
@@ -35,7 +35,7 @@ public class SistemaBiblioteca {
         servicos.add(servico);
     }
 
-    // ================= BUSCAS =================
+  //Métodos de busca
 
     public Usuario buscarUsuarioPorCpf(String cpf) {
         for (Usuario u : usuarios) {
@@ -53,8 +53,7 @@ public class SistemaBiblioteca {
         return null;
     }
 
-    // ================= LOGIN =================
-    
+  //Métodos de login
     
     public boolean isAutenticado() {
         return usuarioLogado != null;
@@ -65,7 +64,7 @@ public class SistemaBiblioteca {
     }
 
     public boolean login(String user, String senha) {
-        Usuario u = login.autenticar(user, senha); // chama a classe Login
+        Usuario u = login.autenticar(user, senha);
         if (u != null) {
             usuarioLogado = u;
             return true;
@@ -77,7 +76,7 @@ public class SistemaBiblioteca {
         usuarioLogado = null;
     }
     
-    // ================= USER =================
+  //Métodos do User
     
     public boolean isGerente() {
         return usuarioLogado != null &&
@@ -90,7 +89,7 @@ public class SistemaBiblioteca {
     }
 
 
-    // ================= PENALIDADE =================
+  //Métodos de penalidades
 
     private boolean usuarioPenalizado(Usuario u) {
         for (Penalidade p : penalidades) {
@@ -121,11 +120,9 @@ public class SistemaBiblioteca {
         }
     }
 
+  //Métodos de empréstimo
 
-    // ================= EMPRÉSTIMO =================
-
-
-public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate dataDevolucaoPrevista) {
+    public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate dataDevolucaoPrevista) {
         try {
             Item item = buscarItemPorCodigo(codigo);
             Usuario usuario = buscarUsuarioPorCpf(cpf);
@@ -151,31 +148,23 @@ public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate
     }
 
 
-    // ================= DEVOLUÇÃO =================
+//Métodos de devolução
 
     public void devolverItem(int codigo) {
         for (Emprestimo e : emprestimos) {
-
             if (e.getItem().getCodigo() == codigo && e.estaPendente()) {
-
                 e.devolver(LocalDate.now());
 
                 if (e.getStatus() == StatusEmprestimo.ATRASADO) {
-                    aplicarPenalidade(
-                        e.getUsuario(),
-                        "Devolução em atraso",
-                        7
-                    );
+                    aplicarPenalidade(e.getUsuario(), "Devolução em atraso", 7);
                 }
-
                 return;
             }
         }
-
         System.out.println("Empréstimo não encontrado ou já devolvido.");
     }
 
- // ===== RELATÓRIO =====
+  //Métodos de relatório
 
     public int getTotalUsuarios() {
         return usuarios.size();
@@ -208,7 +197,7 @@ public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate
     public int getTotalServicos() {
         return servicos.size();
     }
-
+    
     public int getPenalidadesAtivas() {
         int count = 0;
         for (Penalidade p : penalidades) {
@@ -217,7 +206,7 @@ public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate
         return count;
     }
     
-    // Serviços
+//Métodos de serviços
     
     public void listarServicos() {
         if (servicos.isEmpty()) {
@@ -268,11 +257,8 @@ public void emprestarItem(int codigo, String cpf, LocalDate dataSaida, LocalDate
 
         System.out.println("Inscrição realizada com sucesso!");
     }
-
-
-
     
- // ===== PERMISSÃO =====
+//Métodos de permissão
 
     public boolean temPermissao(TipoUsuario... tipos) {
         if (!isAutenticado()) return false;

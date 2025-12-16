@@ -4,9 +4,8 @@ import java.util.Scanner;
 import java.time.LocalDate;
 
 public class Main {
-
     public static void main(String[] args) {
-
+    	
         Scanner sc = new Scanner(System.in);
         SistemaBiblioteca sistema = new SistemaBiblioteca();
 
@@ -71,7 +70,13 @@ public class Main {
                 }
                 case 6 -> login(sc, sistema);
                 case 7 -> logout(sistema);
-                case 8 -> gerarRelatorio(sistema);
+                case 8 -> {
+                    if (!sistema.temPermissao(TipoUsuario.GERENTE)) {
+                        System.out.println("Acesso negado. Apenas GERENTE pode gerar relatório.");
+                    } else {
+                        gerarRelatorio(sistema);
+                    }
+                }
                 case 9 -> sistema.listarServicos();
                 case 10 -> inscreverServico(sc, sistema);
                 case 11 -> verMinhasPenalidades(sistema);
@@ -86,8 +91,6 @@ public class Main {
 
         sc.close();
     }
-
-    // ================= USUÁRIO =================
 
     private static void cadastrarUsuario(Scanner sc, SistemaBiblioteca sistema) {
 
@@ -130,8 +133,6 @@ public class Main {
         sistema.cadastrarUsuario(u);
         System.out.println("Usuário cadastrado com sucesso!");
     }
-
-    // ================= ITEM =================
 
     private static void cadastrarItem(Scanner sc, SistemaBiblioteca sistema) {
 
@@ -183,8 +184,6 @@ public class Main {
 
     }
 
-    // ================= EMPRÉSTIMO =================
-
     private static void emprestarItem(Scanner sc, SistemaBiblioteca sistema) {
 
         if (sistema.getUsuarioLogado() == null) {
@@ -208,8 +207,6 @@ public class Main {
         sistema.emprestarItem(codigo, cpf, saida, devolucao);
     }
 
-    // ================= DEVOLUÇÃO =================
-
     private static void devolverItem(Scanner sc, SistemaBiblioteca sistema) {
 
         if (sistema.getUsuarioLogado() == null) {
@@ -222,9 +219,7 @@ public class Main {
 
         sistema.devolverItem(codigo);
     }
-    
-    // PENALIDADES
-    
+        
     private static void verMinhasPenalidades(SistemaBiblioteca sistema) {
 
         if (!sistema.isAutenticado()) {
@@ -271,9 +266,6 @@ public class Main {
         System.out.println("Penalidade aplicada com sucesso.");
     }
 
-
-    // ================= SERVIÇO COMUNITÁRIO =================
-
     private static void criarServico(Scanner sc, SistemaBiblioteca sistema) {
 
     	if (!sistema.isAutenticado()) {
@@ -311,8 +303,6 @@ public class Main {
         System.out.println("Serviço comunitário criado com sucesso!");
     }
 
-    // ================= LOGIN / LOGOUT =================
-
     private static void login(Scanner sc, SistemaBiblioteca sistema) {
 
         if (sistema.isAutenticado()) {
@@ -337,7 +327,6 @@ public class Main {
         }
     }
 
-
     private static void logout(SistemaBiblioteca sistema) {
 
         if (!sistema.isAutenticado()) {
@@ -350,8 +339,6 @@ public class Main {
 
         sistema.logout();
     }
-    
-    // SERVIÇOS
     
     private static void inscreverServico(Scanner sc, SistemaBiblioteca sistema) {
 
@@ -367,10 +354,6 @@ public class Main {
         sistema.inscreverEmServico(id);
     }
 
-
-
-    // ================= RELATÓRIO =================
-
     private static void gerarRelatorio(SistemaBiblioteca sistema) {
 
         System.out.println("\n===== RELATÓRIO DO SISTEMA =====");
@@ -383,8 +366,6 @@ public class Main {
         System.out.println("Penalidades ativas: " + sistema.getPenalidadesAtivas());
         System.out.println("================================\n");
     }
-    
-    // HISTORICO
     
     private static void verHistorico(SistemaBiblioteca sistema) {
 
