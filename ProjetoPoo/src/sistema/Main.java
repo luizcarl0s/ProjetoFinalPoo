@@ -16,9 +16,7 @@ public class Main {
             System.out.println("Biblioteca Comunitária\n");
 
             if (sistema.isAutenticado()) {
-                System.out.println("Logado como: " +
-                    sistema.getUsuarioLogado().getNome() +
-                    " (" + sistema.getUsuarioLogado().getTipo() + ")");
+                System.out.println("Logado como: " + sistema.getUsuarioLogado().getNome() + " (" + sistema.getUsuarioLogado().getTipo() + ")");
             } else {
                 System.out.println("Não autenticado\n");
             }
@@ -63,7 +61,7 @@ public class Main {
                 case 4 -> devolverItem(sc, sistema);
                 case 5 -> {
                     if (!sistema.temPermissao(TipoUsuario.GERENTE)) {
-                        System.out.println("Acesso negado. Apenas GERENTE.");
+                        System.out.println("Acesso negado. Apenas o GERENTE.");
                     } else {
                         criarServico(sc, sistema);
                     }
@@ -72,7 +70,7 @@ public class Main {
                 case 7 -> logout(sistema);
                 case 8 -> {
                     if (!sistema.temPermissao(TipoUsuario.GERENTE)) {
-                        System.out.println("Acesso negado. Apenas GERENTE pode gerar relatório.");
+                        System.out.println("Acesso negado. Apenas o GERENTE pode gerar relatório.");
                     } else {
                         gerarRelatorio(sistema);
                     }
@@ -87,7 +85,6 @@ public class Main {
             }
 
         } while (opcao != 0);
-
 
         sc.close();
     }
@@ -112,25 +109,25 @@ public class Main {
         System.out.print("Senha: ");
         String senha = sc.nextLine();
 
-        Usuario u;
+        Usuario usuarioNovo;
 
         switch (tipo) {
             case GERENTE -> {
                 System.out.print("Setor responsável: ");
                 String setor = sc.nextLine();
-                u = new Gerente(cpf, nome, contato, user, senha, setor);
+                usuarioNovo = new Gerente(cpf, nome, contato, user, senha, setor);
             }
             case VOLUNTARIO -> {
                 System.out.print("Perfil do voluntário: ");
                 String perfil = sc.nextLine();
-                u = new Voluntario(cpf, nome, contato, user, senha, perfil);
+                usuarioNovo = new Voluntario(cpf, nome, contato, user, senha, perfil);
             }
             default -> {
-                u = new Usuario(cpf, nome, contato, tipo, user, senha);
+            	usuarioNovo = new Usuario(cpf, nome, contato, tipo, user, senha);
             }
         }
 
-        sistema.cadastrarUsuario(u);
+        sistema.cadastrarUsuario(usuarioNovo);
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
@@ -306,8 +303,7 @@ public class Main {
     private static void login(Scanner sc, SistemaBiblioteca sistema) {
 
         if (sistema.isAutenticado()) {
-            System.out.println("Já existe um usuário logado: "
-                    + sistema.getUsuarioLogado().getNome());
+            System.out.println("Já existe um usuário logado: " + sistema.getUsuarioLogado().getNome());
             return;
         }
 
@@ -334,8 +330,7 @@ public class Main {
             return;
         }
 
-        System.out.println("Logout realizado: " +
-            sistema.getUsuarioLogado().getNome());
+        System.out.println("Logout realizado: " + sistema.getUsuarioLogado().getNome());
 
         sistema.logout();
     }
@@ -356,7 +351,7 @@ public class Main {
 
     private static void gerarRelatorio(SistemaBiblioteca sistema) {
 
-        System.out.println("\n===== RELATÓRIO DO SISTEMA =====");
+        System.out.println("\nRelatório do sistema:\n");
         System.out.println("Usuários cadastrados: " + sistema.getTotalUsuarios());
         System.out.println("Itens cadastrados: " + sistema.getTotalItens());
         System.out.println("Itens disponíveis: " + sistema.getItensDisponiveis());
@@ -364,7 +359,7 @@ public class Main {
         System.out.println("Empréstimos ativos: " + sistema.getEmprestimosAtivos());
         System.out.println("Serviços comunitários: " + sistema.getTotalServicos());
         System.out.println("Penalidades ativas: " + sistema.getPenalidadesAtivas());
-        System.out.println("================================\n");
+        System.out.println("\n");
     }
     
     private static void verHistorico(SistemaBiblioteca sistema) {
@@ -376,7 +371,7 @@ public class Main {
 
         Usuario u = sistema.getUsuarioLogado();
 
-        System.out.println("\n===== HISTÓRICO DE " + u.getNome() + " =====");
+        System.out.println("\nHistórico de " + u.getNome());
 
         System.out.println("\nEmpréstimos:");
         u.getHistorico().listarEmprestimos();
